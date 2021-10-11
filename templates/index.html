@@ -1,0 +1,32 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+var intervalID = setInterval(update_values,5000);
+
+  function update_values() {
+        $.getJSON($SCRIPT_ROOT + '/Crypto_Price',
+               
+      function(data) {
+        $('#result').text(data.result);
+        console.log(data.result);
+      });
+      
+    };
+  
+    function stopTextColor() {
+      clearInterval(intervalID);
+    }
+</script>
+
+<body onload="update_values();">
+
+  <h1>Dynamic Update</h1>
+  <p>
+      BTC : <span id="result">?</span>
+  <script>
+  document.getElementById("result").innerHTML;
+  </script>
+
+    <button onclick="stopTextColor();">Stop</button>
+</body>
